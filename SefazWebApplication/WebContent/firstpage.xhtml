@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Hello JSF</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="formPessoa">
+
+		<h1>Olá Jonas!</h1>
+
+		<h:outputLabel value="Id" />
+		<h:inputText value="#{userBean.user.id}" readonly="true" />
+
+		<br />
+		<h:outputLabel value="Nome:" />
+		<h:inputText value="#{userBean.user.name}" />
+
+		<br />
+		<h:outputLabel value="Email:" />
+		<h:inputText value="#{userBean.user.email}" />
+
+		<br />
+		<h:outputLabel value="Senha:" />
+		<h:inputSecret value="#{userBean.user.password}" />
+
+		<br />
+		<h:commandButton value="Novo Usuário" action="#{userBean.newUser}" />
+		<h:commandButton value="Salvar" action="#{userBean.saveUser}" />
+		<h:commandButton value="Excluir" action="#{userBean.deleteUser}" />
+		
+
+		<h:dataTable value="#{userBean.users}" var="user">
+
+			<h:column>
+				<h:outputText value="#{user.id}" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{user.name}" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{user.email}" />
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{user.password}" />
+			</h:column>
+
+			<h:column>
+				<h:commandLink value="Editar">
+					<f:setPropertyActionListener value="#{user}" target="#{userBean.user}"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<h:commandLink value="Excluir" action="#{userBean.deleteUser}">
+					<f:setPropertyActionListener value="#{user}" target="#{userBean.user}"/>
+				</h:commandLink>
+			</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+
+</h:body>
+
+</html>
