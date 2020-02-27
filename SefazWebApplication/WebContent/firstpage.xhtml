@@ -5,63 +5,72 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<title>Hello JSF</title>
+	<title>Sistema SEFAZ</title>
 </h:head>
 
 <h:body>
 
 	<h:form id="formPessoa">
 
-		<h1>Olá Jonas!</h1>
+		<h:panelGrid columns="2">
+		<f:facet name="header">Cadastro de Usuário</f:facet>
 
-		<h:outputLabel value="Id" />
-		<h:inputText value="#{userBean.user.id}" readonly="true" />
+			<h:outputLabel value="Id" />
+			<h:inputText value="#{userBean.user.id}" readonly="true" />
 
-		<br />
-		<h:outputLabel value="Nome:" />
-		<h:inputText value="#{userBean.user.name}" />
 
-		<br />
-		<h:outputLabel value="Email:" />
-		<h:inputText value="#{userBean.user.email}" />
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{userBean.user.name}" />
 
-		<br />
-		<h:outputLabel value="Senha:" />
-		<h:inputSecret value="#{userBean.user.password}" />
 
-		<br />
+			<h:outputLabel value="Email:" />
+			<h:inputText value="#{userBean.user.email}" />
 
-		<h:commandButton value="Salvar" action="#{userBean.saveUser}" />
 
-		
+			<h:outputLabel value="Senha:" />
+			<h:inputSecret value="#{userBean.user.password}" />
 
-		<h:dataTable value="#{userBean.users}" var="user">
+			<h:commandButton value="Salvar" action="#{userBean.saveUser}" />
+
+		</h:panelGrid>
+
+		<h:dataTable value="#{userBean.users}" var="user" border="1" cellpadding="1">
+
+		<f:facet name="header">Lista de Usuários Cadastrados</f:facet>
 
 			<h:column>
+				<f:facet name="header">ID</f:facet>
 				<h:outputText value="#{user.id}" />
 			</h:column>
 
 			<h:column>
+			<f:facet name="header">Nome</f:facet>
 				<h:outputText value="#{user.name}" />
 			</h:column>
 
 			<h:column>
+			<f:facet name="header">Email</f:facet>
 				<h:outputText value="#{user.email}" />
 			</h:column>
 
 			<h:column>
+			<f:facet name="header">Senha</f:facet>
 				<h:outputText value="#{user.password}" />
 			</h:column>
 
 			<h:column>
+			<f:facet name="header">Editar</f:facet>
 				<h:commandLink value="Editar">
-					<f:setPropertyActionListener value="#{user}" target="#{userBean.user}"/>
+					<f:setPropertyActionListener value="#{user}"
+						target="#{userBean.user}" />
 				</h:commandLink>
-			</h:column>
-			
-			<h:column>
+				</h:column>
+				
+				<h:column>
+				<f:facet name="header">Excluir</f:facet>
 				<h:commandLink value="Excluir" action="#{userBean.deleteUser}">
-					<f:setPropertyActionListener value="#{user}" target="#{userBean.user}"/>
+					<f:setPropertyActionListener value="#{user}"
+						target="#{userBean.user}" />
 				</h:commandLink>
 			</h:column>
 
