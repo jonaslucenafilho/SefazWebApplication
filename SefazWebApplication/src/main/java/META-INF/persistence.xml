@@ -25,6 +25,18 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<!-- minimum available ports -->
+			<property name="hibernate.c3p0.min_size" value="5"/>
+			<!-- maximum available ports -->
+			<property name="hibernate.c3p0.max_size" value="50"/>
+			<!-- number of seconds that an inactive connection is maintained in the pool -->
+			<property name="hibernate.c3p0.timeout" value="300"/>
+			<!-- maximum transactions with the database kept in cache -->
+			<property name="hibernate.c3p0.max.statements" value="50"/>
+			<!-- idle time in seconds before a connection is automatically validated -->
+			<property name="hibernate.c3p0.idle_test_period" value="120"/>
+			
 		</properties>
 
 
