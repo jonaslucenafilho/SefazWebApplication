@@ -14,7 +14,7 @@
 		<h:commandLink value="Logout" action="#{userBean.logOut}" style="margin-left:1cm;" />
 	</h:form>
 
-	<h:form id="formPessoa">
+	<h:form id="formUser">
 
 		<h:messages />
 
@@ -42,6 +42,10 @@
 			<h:commandButton value="Salvar" action="#{userBean.saveUser}" />
 
 		</h:panelGrid>
+		
+		</h:form>
+		
+		<h:form id="formList">
 
 		<h:dataTable value="#{userBean.users}" var="user" border="1"
 			cellpadding="1">
