@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import br.com.sefaz.dao.DaoGeneric;
 import br.com.sefaz.model.User;
@@ -57,6 +59,7 @@ public class UserBean implements Serializable {
 		user = daoGeneric.update(user);
 		user = new User();
 		loadUsers();
+		showMsg("Cadastrado com sucesso!");
 		return "";
 	}
 
@@ -69,6 +72,7 @@ public class UserBean implements Serializable {
 		daoGeneric.delete(user);
 		user = new User();
 		loadUsers();
+		showMsg("Removido com sucesso!");
 		return "";
 	}
 
@@ -91,6 +95,26 @@ public class UserBean implements Serializable {
 		}
 
 		return "index.jsf";
+	}
+	
+	public String logOut() {
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		externalContext.getSessionMap().remove("loggedUser");
+		
+		HttpServletRequest httpServletRequest = (HttpServletRequest) context.getCurrentInstance().getExternalContext().getRequest();
+		
+		httpServletRequest.getSession().invalidate();
+
+		return "index.jsf";
+	}
+	
+	private void showMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
+		
 	}
 
 }
