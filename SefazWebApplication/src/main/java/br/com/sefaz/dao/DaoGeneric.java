@@ -2,6 +2,8 @@ package br.com.sefaz.dao;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -68,4 +70,25 @@ public class DaoGeneric<E> {
 		
 		return listEntity;
 	}
+	
+	public E search(Long id, Class<E> entity) {
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		
+		E searchEntity = (E) entityManager.createQuery("from " + entity.getSimpleName() + " where id = " + id).getSingleResult();
+		
+		entityManager.close();
+		
+		return searchEntity;
+
+	}
+	
+	public void showMsg(String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(msg);
+		context.addMessage(null, message);
+		
+	}
+
 }
