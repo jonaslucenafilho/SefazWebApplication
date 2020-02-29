@@ -10,7 +10,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
+
+import com.sun.webkit.ContextMenu.ShowContext;
 
 import br.com.sefaz.dao.DaoGeneric;
 import br.com.sefaz.model.User;
@@ -26,8 +29,6 @@ public class UserBean implements Serializable {
 	private User user = new User();
 	private DaoGeneric<User> daoGenericUser = new DaoGeneric<User>();
 	private List<User> users = new ArrayList<User>();
-//	private DaoUser daoUser = new DaoUser();
-	
 	private IDaoUser iDaoUser = new IDaoUserImpl();
 
 	public User getUser() {
@@ -50,12 +51,6 @@ public class UserBean implements Serializable {
 		return users;
 	}
 
-//	public String save() {
-//		daoGeneric.save(user);
-//		
-//		return "";
-//	}
-
 	public String saveUser() {
 		daoGenericUser.update(user);
 		user = new User();
@@ -64,8 +59,10 @@ public class UserBean implements Serializable {
 		return "";
 	}
 
-	public String newUser() {
+	public String saveNewUser() {
+		daoGenericUser.update(user);
 		user = new User();
+		daoGenericUser.showMsg("Cadastrado com sucesso!");
 		return "";
 	}
 
@@ -75,9 +72,9 @@ public class UserBean implements Serializable {
 			user = new User();
 			loadUsers();
 			daoGenericUser.showMsg("Removido com sucesso!");
-			} else {
-				daoGenericUser.showMsg("Existem telefones associados ao usuário!");
-			}
+		} else {
+			daoGenericUser.showMsg("Existem telefones associados ao usuário!");
+		}
 		user = new User();
 		return "";
 	}
@@ -86,31 +83,36 @@ public class UserBean implements Serializable {
 	public void loadUsers() {
 		users = daoGenericUser.getListEntity(User.class);
 	}
-	
+
 	public String logInto() {
+		try {
+			User userLogged = iDaoUser.consultUser(user.getEmail(), user.getPassword());
+			if (userLogged != null) {
 
-		User userLogged = iDaoUser.consultUser(user.getEmail(), user.getPassword());
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+				externalContext.getSessionMap().put("loggedUser", userLogged);
 
-		if (userLogged != null) {
+				return "firstpage.jsf";
+			}
 
-			FacesContext context = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = context.getExternalContext();
-			externalContext.getSessionMap().put("loggedUser", userLogged);
-
-			return "firstpage.jsf";
+		} catch (NoResultException e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Inválidos", "Login Inválido"));
 		}
 
-		return "index.jsf";
+		return "";
 	}
-	
+
 	public String logOut() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 		externalContext.getSessionMap().remove("loggedUser");
-		
-		HttpServletRequest httpServletRequest = (HttpServletRequest) context.getCurrentInstance().getExternalContext().getRequest();
-		
+
+		HttpServletRequest httpServletRequest = (HttpServletRequest) context.getCurrentInstance().getExternalContext()
+				.getRequest();
+
 		httpServletRequest.getSession().invalidate();
 
 		return "index.jsf";
