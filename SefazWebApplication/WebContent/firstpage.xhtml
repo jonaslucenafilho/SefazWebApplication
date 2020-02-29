@@ -11,7 +11,8 @@
 <h:body>
 
 	<h:form>
-		<h:commandLink value="Logout" action="#{userBean.logOut}" style="margin-left:1cm;" />
+		<h:commandLink value="Home" action="firstpage.jsf" style="margin-left:1cm"/>
+		<h:commandLink value="Logout" action="#{userBean.logOut}" style="margin-left:1cm" />
 	</h:form>
 
 	<h:form id="formUser">
@@ -42,10 +43,10 @@
 			<h:commandButton value="Salvar" action="#{userBean.saveUser}" />
 
 		</h:panelGrid>
-		
-		</h:form>
-		
-		<h:form id="formList">
+
+	</h:form>
+
+	<h:form id="formListUsers">
 
 		<h:dataTable value="#{userBean.users}" var="user" border="1"
 			cellpadding="1">
@@ -70,6 +71,14 @@
 			<h:column>
 				<f:facet name="header">Senha</f:facet>
 				<h:outputText value="#{user.password}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Telefones</f:facet>
+				<h:commandLink value="Telefones" action="phoneregister.jsf">
+					<f:param name="usercode" value="#{user.id}" />
+
+				</h:commandLink>
 			</h:column>
 
 			<h:column>

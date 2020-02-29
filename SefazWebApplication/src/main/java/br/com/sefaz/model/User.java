@@ -3,6 +3,7 @@ package br.com.sefaz.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -23,16 +26,19 @@ public class User implements Serializable {
 	@Column(name = "id")
 	private Long id;
 	
+	@NotBlank(message = "Nome deve ser informado")
 	@Column(name = "name")
 	private String name;
 	
+	@NotBlank(message = "Email deve ser informado")
 	@Column(name = "email")
 	private String email;
 	
+	@NotBlank(message = "Senha deve ser informada")
 	@Column(name = "password")
 	private String password;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Phone> phones;
 	
 	public User() {
