@@ -24,8 +24,9 @@ public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private User user = new User();
-	private DaoGeneric<User> daoGeneric = new DaoGeneric<User>();
+	private DaoGeneric<User> daoGenericUser = new DaoGeneric<User>();
 	private List<User> users = new ArrayList<User>();
+//	private DaoUser daoUser = new DaoUser();
 	
 	private IDaoUser iDaoUser = new IDaoUserImpl();
 
@@ -38,11 +39,11 @@ public class UserBean implements Serializable {
 	}
 
 	public DaoGeneric<User> getDaoGeneric() {
-		return daoGeneric;
+		return daoGenericUser;
 	}
 
 	public void setDaoGeneric(DaoGeneric<User> daoGeneric) {
-		this.daoGeneric = daoGeneric;
+		this.daoGenericUser = daoGeneric;
 	}
 
 	public List<User> getUsers() {
@@ -56,10 +57,10 @@ public class UserBean implements Serializable {
 //	}
 
 	public String saveUser() {
-		user = daoGeneric.update(user);
+		daoGenericUser.update(user);
 		user = new User();
 		loadUsers();
-		showMsg("Cadastrado com sucesso!");
+		daoGenericUser.showMsg("Cadastrado com sucesso!");
 		return "";
 	}
 
@@ -69,16 +70,21 @@ public class UserBean implements Serializable {
 	}
 
 	public String deleteUser() {
-		daoGeneric.delete(user);
+		if (user.getPhones().isEmpty()) {
+			daoGenericUser.delete(user);
+			user = new User();
+			loadUsers();
+			daoGenericUser.showMsg("Removido com sucesso!");
+			} else {
+				daoGenericUser.showMsg("Existem telefones associados ao usuário!");
+			}
 		user = new User();
-		loadUsers();
-		showMsg("Removido com sucesso!");
 		return "";
 	}
 
 	@PostConstruct
 	public void loadUsers() {
-		users = daoGeneric.getListEntity(User.class);
+		users = daoGenericUser.getListEntity(User.class);
 	}
 	
 	public String logInto() {
@@ -108,13 +114,6 @@ public class UserBean implements Serializable {
 		httpServletRequest.getSession().invalidate();
 
 		return "index.jsf";
-	}
-	
-	private void showMsg(String msg) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		FacesMessage message = new FacesMessage(msg);
-		context.addMessage(null, message);
-		
 	}
 
 }
