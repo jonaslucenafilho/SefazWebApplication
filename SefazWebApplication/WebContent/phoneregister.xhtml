@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Sistema SEFAZ</title>
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<h:commandLink value="Home" action="firstpage.jsf" style="margin-left:1cm"/>
+		<h:commandLink value="Logout" action="#{userBean.logOut}" style="margin-left:1cm;" />
+	</h:form>
+
+	<h:form id="formPhone">
+	
+	<h:messages />
+
+	<h:panelGrid columns="2">
+	
+	<h:outputLabel>Usuário: </h:outputLabel>
+	<h:outputText value="#{phoneBean.user.name}"/>
+	
+	<h:outputLabel>DDD: </h:outputLabel>
+	<h:inputText value="#{phoneBean.phone.ddd}"/>
+	
+	<h:outputLabel>Número: </h:outputLabel>
+	<h:inputText value="#{phoneBean.phone.number}"/>
+	
+	<h:outputLabel>Tipo: </h:outputLabel>
+	<h:inputText value="#{phoneBean.phone.type}"/>
+	
+	<h:commandButton value="Salvar" action="#{phoneBean.savePhone}" />
+	
+	</h:panelGrid>
+	
+	</h:form>
+	
+	<h:form id="formListPhones">
+	
+	<h:dataTable value="#{phoneBean.user.phones}" var="phone" border="1"
+			cellpadding="1">
+			
+			<f:facet name="header">Lista de Telefones Cadastrados</f:facet>
+			
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{phone.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">DDD</f:facet>
+				<h:outputText value="#{phone.ddd}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Número</f:facet>
+				<h:outputText value="#{phone.number}" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Tipo</f:facet>
+				<h:outputText value="#{phone.type}" />
+			</h:column>	
+			
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink value="Excluir" action="#{phoneBean.deletePhone}">
+					<f:setPropertyActionListener value="#{phone}"
+						target="#{phoneBean.phone}" />
+				</h:commandLink>
+			</h:column>		
+	
+	</h:dataTable>
+	
+	</h:form>
+
+</h:body>
+
+</html>
