@@ -7,8 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "phones")
 public class Phone {
 
 	@Id
@@ -17,7 +19,7 @@ public class Phone {
 	private Long id;
 	
 	@Column(name = "ddd")
-	private Integer ddd;
+	private int ddd;
 	
 	@Column(name = "number")
 	private String number;
@@ -32,7 +34,7 @@ public class Phone {
 		
 	}
 
-	public Phone(Long id, Integer ddd, String number, String type, User user) {
+	public Phone(Long id, int ddd, String number, String type, User user) {
 		this.id = id;
 		this.ddd = ddd;
 		this.number = number;
@@ -40,7 +42,7 @@ public class Phone {
 		this.user = user;
 	}
 
-	public Phone(Integer ddd, String number, String type, User user) {
+	public Phone(int ddd, String number, String type, User user) {
 		this.ddd = ddd;
 		this.number = number;
 		this.type = type;
@@ -59,7 +61,7 @@ public class Phone {
 		return ddd;
 	}
 
-	public void setDdd(Integer ddd) {
+	public void setDdd(int ddd) {
 		this.ddd = ddd;
 	}
 
