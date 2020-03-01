@@ -51,7 +51,7 @@ public class PhoneBean implements Serializable {
 		daoGenericPhone.update(phone);
 		phone = new Phone();
 		user = daoUser.search(user.getId(), User.class);
-		showMsg("Cadastrado com sucesso!");
+		daoGenericPhone.showMsg("Cadastrado com sucesso!");
 		return "";
 	}
 	
@@ -60,14 +60,8 @@ public class PhoneBean implements Serializable {
 		daoGenericPhone.delete(phone);
 		phone = new Phone();
 		user = daoUser.search(user.getId(), User.class);
-		showMsg("Removido com sucesso!");
+		daoGenericPhone.showMsg("Removido com sucesso!");
 		return "";
 	}
 	
-	private void showMsg(String msg) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		FacesMessage message = new FacesMessage(msg);
-		context.addMessage(null, message);
-		
-	}
 }

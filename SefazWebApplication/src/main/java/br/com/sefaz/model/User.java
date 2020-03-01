@@ -30,11 +30,11 @@ public class User implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
-	@NotBlank(message = "Email deve ser informado")
+//	@NotBlank(message = "Email deve ser informado")
 	@Column(name = "email")
 	private String email;
 	
-	@NotBlank(message = "Senha deve ser informada")
+//	@NotBlank(message = "Senha deve ser informada")
 	@Column(name = "password")
 	private String password;
 	
