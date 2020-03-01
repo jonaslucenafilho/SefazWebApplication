@@ -12,71 +12,98 @@
 <h:body>
 
 	<h:form>
-		<h:commandLink value="Home" action="firstpage.jsf" style="margin-left:1cm"/>
-		<h:commandLink value="Logout" action="#{userBean.logOut}" style="margin-left:1cm;" />
+	
+		<p:toolbar>
+		 <f:facet name="left">
+		 <p:commandButton value="Home" ajax="false" action="firstpage.jsf"/>
+		 </f:facet>
+		 
+		 <f:facet name="right">
+		 <p:commandButton value="Logout" ajax="false" action="#{userBean.logOut}"/>
+		 </f:facet>
+		</p:toolbar>
+		
 	</h:form>
 
 	<h:form id="formPhone">
-	
-	<h:messages />
 
-	<h:panelGrid columns="2">
-	
-	<h:outputLabel>Usuário: </h:outputLabel>
-	<h:outputText value="#{phoneBean.user.name}"/>
-	
-	<h:outputLabel>DDD: </h:outputLabel>
-	<h:inputText value="#{phoneBean.phone.ddd}"/>
-	
-	<h:outputLabel>Número: </h:outputLabel>
-	<h:inputText value="#{phoneBean.phone.number}"/>
-	
-	<h:outputLabel>Tipo: </h:outputLabel>
-	<h:inputText value="#{phoneBean.phone.type}"/>
-	
-	<h:commandButton value="Salvar" action="#{phoneBean.savePhone}" />
-	
-	</h:panelGrid>
-	
+		<p:growl autoUpdate="true" id="growlFormPhone" showSummary="false"
+			showDetail="true" />
+
+		<p:panelGrid columns="2">
+
+			<f:facet name="header">Cadastro de Telefone</f:facet>
+
+			<p:outputLabel value="Usuário:" />
+			<p:outputLabel value="#{phoneBean.user.name}" />
+
+			<p:outputLabel value="DDD:" />
+			<p:inputText mask="(99)" value="#{phoneBean.phone.ddd}"
+				required="true" requiredMessage="Informe o DDD" />
+
+			<p:outputLabel value="Número:" />
+			<p:inputMask mask="9999-9999" value="#{phoneBean.phone.number}"
+				required="true" requiredMessage="Informe o número" />
+
+			<p:outputLabel value="Tipo:" />
+			<p:selectOneMenu value="#{phoneBean.phone.type}" required="true"
+				requiredMessage="Informe o tipo">
+				<f:selectItem itemValue="Pessoal" itemLabel="Pessoal" />
+				<f:selectItem itemValue="Residencial" itemLabel="Residencial" />
+				<f:selectItem itemValue="Comercial" itemLabel="Comercial" />
+			</p:selectOneMenu>
+
+			<p:commandButton value="Salvar" ajax="false"
+				action="#{phoneBean.savePhone}" />
+
+		</p:panelGrid>
 	</h:form>
-	
+
 	<h:form id="formListPhones">
-	
-	<h:dataTable value="#{phoneBean.user.phones}" var="phone" border="1"
+
+		<p:growl autoUpdate="true" id="growlFormListPhones" showSummary="false"
+			showDetail="true" />
+
+		<p:dataTable value="#{phoneBean.user.phones}" var="phone" border="1"
 			cellpadding="1">
-			
+
 			<f:facet name="header">Lista de Telefones Cadastrados</f:facet>
-			
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-				<h:outputText value="#{phone.id}" />
-			</h:column>
 
-			<h:column>
-				<f:facet name="header">DDD</f:facet>
-				<h:outputText value="#{phone.ddd}" />
-			</h:column>
+			<p:column headerText="Id">
+				<p:outputLabel value="#{phone.id}" />
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">Número</f:facet>
-				<h:outputText value="#{phone.number}" />
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Tipo</f:facet>
-				<h:outputText value="#{phone.type}" />
-			</h:column>	
-			
-			<h:column>
-				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink value="Excluir" action="#{phoneBean.deletePhone}">
+			<p:column headerText="DDD">
+				<p:outputLabel value="#{phone.ddd}" />
+			</p:column>
+
+			<p:column headerClass="Número">
+				<p:outputLabel value="#{phone.number}" />
+			</p:column>
+
+			<p:column headerText="Tipo">
+				<p:outputLabel value="#{phone.type}" />
+			</p:column>
+
+			<p:column headerText="Editar">
+				<h:commandLink value="Editar" id="editButton">
 					<f:setPropertyActionListener value="#{phone}"
 						target="#{phoneBean.phone}" />
+					<f:ajax execute="editButton" render=":formPhone" />
 				</h:commandLink>
-			</h:column>		
-	
-	</h:dataTable>
-	
+			</p:column>
+
+			<p:column headerText="Excluir">
+				<h:commandLink value="Excluir" action="#{phoneBean.deletePhone}"
+					id="removeButton">
+					<f:setPropertyActionListener value="#{phone}"
+						target="#{phoneBean.phone}" />
+					<f:ajax execute="removeButton" render="@form" />
+				</h:commandLink>
+			</p:column>
+
+		</p:dataTable>
+
 	</h:form>
 
 </h:body>

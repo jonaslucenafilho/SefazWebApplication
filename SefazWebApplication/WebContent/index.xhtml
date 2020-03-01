@@ -13,22 +13,28 @@
 
 	<h:form id="formLogin" style="margin-top:20%; margin-left:40%">
 
-		<h:messages />
+		<p:growl autoUpdate="true" id="growlFormLogin" showSummary="true"
+			showDetail="false" />
 
-		<h1>Realize o Login</h1>
 
-		<h:panelGrid columns="2">
+		<p:panelGrid columns="2">
 
-			<h:outputLabel value="Email:" />
-			<h:inputText value="#{userBean.user.email}" />
+			<f:facet name="header">Realize o Login</f:facet>
 
-			<h:outputLabel value="Senha:" />
-			<h:inputSecret value="#{userBean.user.password}" />
+			<p:outputLabel value="Email:" />
+			<p:inputText value="#{userBean.user.email}" />
 
-			<h:commandButton value="Entrar" action="#{userBean.logInto}" />
-			<h:commandButton value="Cadastrar" action="userregister.jsf" />
+			<p:outputLabel value="Senha:" />
+			<p:password value="#{userBean.user.password}" />
 
-		</h:panelGrid>
+
+			<p:commandButton value="Entrar" ajax="false"
+				action="#{userBean.logInto}" />
+			<p:commandButton value="Cadastrar" action="userregister.jsf" />
+
+		</p:panelGrid>
+
+
 
 	</h:form>
 

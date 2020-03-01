@@ -13,8 +13,6 @@ import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.sun.webkit.ContextMenu.ShowContext;
-
 import br.com.sefaz.dao.DaoGeneric;
 import br.com.sefaz.model.User;
 import br.com.sefaz.repository.IDaoUser;
@@ -49,6 +47,11 @@ public class UserBean implements Serializable {
 
 	public List<User> getUsers() {
 		return users;
+	}
+	
+	public String cleanUser() {
+		user = new User();
+		return "";
 	}
 
 	public String saveUser() {
@@ -98,7 +101,7 @@ public class UserBean implements Serializable {
 
 		} catch (NoResultException e) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Inválidos", "Login Inválido"));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Inválidos", null));
 		}
 
 		return "";
