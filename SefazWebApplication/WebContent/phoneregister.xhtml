@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
@@ -9,103 +10,93 @@
 	<title>Sistema SEFAZ</title>
 </h:head>
 
-<h:body>
+<ui:composition template="/template/layoutBase.xhtml">
 
-	<h:form>
-	
-		<p:toolbar>
-		 <f:facet name="left">
-		 <p:commandButton value="Home" ajax="false" action="firstpage.jsf"/>
-		 </f:facet>
-		 
-		 <f:facet name="right">
-		 <p:commandButton value="Logout" ajax="false" action="#{userBean.logOut}"/>
-		 </f:facet>
-		</p:toolbar>
-		
-	</h:form>
+	<ui:define name="content">
 
-	<h:form id="formPhone">
+		<p:panel id="panelPhone" header="Cadastro de Telefone"
+			style="width:350px;height:250px;margin:auto;">
 
-		<p:growl autoUpdate="true" id="growlFormPhone" showSummary="false"
-			showDetail="true" />
+			<h:form id="formPhone">
 
-		<p:panelGrid columns="2">
+				<p:growl autoUpdate="true" id="growlFormPhone" showSummary="false"
+					showDetail="true" />
 
-			<f:facet name="header">Cadastro de Telefone</f:facet>
+				<h:panelGrid id="panelGridFieldForm" columns="2" cellpadding="10">
 
-			<p:outputLabel value="Usuário:" />
-			<p:outputLabel value="#{phoneBean.user.name}" />
+					<p:outputLabel value="Usuário" for="outputTextName" />
+					<p:outputLabel id="outputTextName" value="#{phoneBean.user.name}" />
 
-			<p:outputLabel value="DDD:" />
-			<p:inputText mask="(99)" value="#{phoneBean.phone.ddd}"
-				required="true" requiredMessage="Informe o DDD" />
+					<p:outputLabel value="DDD:" for="inputDDD" />
+					<p:inputText id="inputDDD" mask="99" value="#{phoneBean.phone.ddd}"
+						required="true" requiredMessage="Informe o DDD" />
 
-			<p:outputLabel value="Número:" />
-			<p:inputMask mask="9999-9999" value="#{phoneBean.phone.number}"
-				required="true" requiredMessage="Informe o número" />
+					<p:outputLabel value="Número:" for="inputNumber" />
+					<p:inputMask id="inputNumber" mask="99999-9999"
+						value="#{phoneBean.phone.number}" required="true"
+						requiredMessage="Informe o número" />
 
-			<p:outputLabel value="Tipo:" />
-			<p:selectOneMenu value="#{phoneBean.phone.type}" required="true"
-				requiredMessage="Informe o tipo">
-				<f:selectItem itemValue="Pessoal" itemLabel="Pessoal" />
-				<f:selectItem itemValue="Residencial" itemLabel="Residencial" />
-				<f:selectItem itemValue="Comercial" itemLabel="Comercial" />
-			</p:selectOneMenu>
+					<p:outputLabel value="Tipo:" />
+					<p:selectOneMenu value="#{phoneBean.phone.type}" required="true"
+						requiredMessage="Informe o tipo">
+						<f:selectItem itemValue="Pessoal" itemLabel="Pessoal" />
+						<f:selectItem itemValue="Comercial" itemLabel="Comercial" />
+					</p:selectOneMenu>
 
-			<p:commandButton value="Salvar" ajax="false"
-				action="#{phoneBean.savePhone}" />
+					<p:spacer />
 
-		</p:panelGrid>
-	</h:form>
+					<p:commandButton value="Salvar" ajax="false"
+						action="#{phoneBean.savePhone}" />
 
-	<h:form id="formListPhones">
+				</h:panelGrid>
 
-		<p:growl autoUpdate="true" id="growlFormListPhones" showSummary="false"
-			showDetail="true" />
+			</h:form>
 
-		<p:dataTable value="#{phoneBean.user.phones}" var="phone" border="1"
-			cellpadding="1">
+			<p:spacer />
 
-			<f:facet name="header">Lista de Telefones Cadastrados</f:facet>
+			<h:form id="formListPhones" style="margin:auto;margin-left:2%;">
 
-			<p:column headerText="Id">
-				<p:outputLabel value="#{phone.id}" />
-			</p:column>
+				<p:growl autoUpdate="true" id="growlFormListPhones"
+					showSummary="false" showDetail="true" />
 
-			<p:column headerText="DDD">
-				<p:outputLabel value="#{phone.ddd}" />
-			</p:column>
+				<p:dataTable id="userPhones" value="#{phoneBean.user.phones}"
+					var="phone" style="width:98%;">
 
-			<p:column headerClass="Número">
-				<p:outputLabel value="#{phone.number}" />
-			</p:column>
+					<f:facet name="header">Lista de Telefones Cadastrados</f:facet>
 
-			<p:column headerText="Tipo">
-				<p:outputLabel value="#{phone.type}" />
-			</p:column>
+					<p:column headerText="ID">
+						<p:outputLabel value="#{phone.id}" />
+					</p:column>
 
-			<p:column headerText="Editar">
-				<h:commandLink value="Editar" id="editButton">
-					<f:setPropertyActionListener value="#{phone}"
-						target="#{phoneBean.phone}" />
-					<f:ajax execute="editButton" render=":formPhone" />
-				</h:commandLink>
-			</p:column>
+					<p:column headerText="DDD">
+						<p:outputLabel value="#{phone.ddd}" />
+					</p:column>
 
-			<p:column headerText="Excluir">
-				<h:commandLink value="Excluir" action="#{phoneBean.deletePhone}"
-					id="removeButton">
-					<f:setPropertyActionListener value="#{phone}"
-						target="#{phoneBean.phone}" />
-					<f:ajax execute="removeButton" render="@form" />
-				</h:commandLink>
-			</p:column>
+					<p:column headerText="Número">
+						<p:outputLabel value="#{phone.number}" />
+					</p:column>
 
-		</p:dataTable>
+					<p:column headerText="Tipo">
+						<p:outputLabel value="#{phone.type}" />
+					</p:column>
 
-	</h:form>
+					<p:column headerText="Excluir">
+						<h:commandLink value="Excluir" action="#{phoneBean.deletePhone}"
+							id="removeButton">
+							<f:setPropertyActionListener value="#{phone}"
+								target="#{phoneBean.phone}" />
+							<f:ajax execute="removeButton" render="@form" />
+						</h:commandLink>
+					</p:column>
 
-</h:body>
+				</p:dataTable>
+
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
 
 </html>

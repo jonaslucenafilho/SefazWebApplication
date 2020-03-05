@@ -12,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -27,14 +29,16 @@ public class User implements Serializable {
 	private Long id;
 	
 	@NotBlank(message = "Nome deve ser informado")
+	@Pattern(regexp = "[^0-9]*[^\\P{L}]*", message = "Nome contém caracteres inválidos")
 	@Column(name = "name")
 	private String name;
 	
-//	@NotBlank(message = "Email deve ser informado")
+	@NotBlank(message = "Email deve ser informado")
+	@Email(message="Insira um email válido")
 	@Column(name = "email")
 	private String email;
 	
-//	@NotBlank(message = "Senha deve ser informada")
+	@NotBlank(message = "Senha deve ser informada")
 	@Column(name = "password")
 	private String password;
 	

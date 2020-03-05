@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Sistema SEFAZ</title>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+
+		<p:dialog header="Editar cadastro de usuário" id="dialogModalEdit"
+			widgetVar="dialogModalEdit" modal="true" height="300px"
+			width="450px">
+
+			<ui:include src="edituser.xhtml" />
+
+		</p:dialog>
+
+		<h:form style="margin:auto;margin-left:2%;" id="formlistUsers">
+
+			<p:growl autoUpdate="true" id="growlListUsers" showSummary="false"
+				showDetail="true" />
+
+			<p:dataTable id="usersInfo" value="#{userBean.users}" var="user"
+				style="width:98%;">
+
+				<f:facet name="header">Lista de Usuários Cadastrados</f:facet>
+
+				<p:column headerText="ID">
+					<p:outputLabel value="#{user.id}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<p:outputLabel value="#{user.name}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<p:outputLabel value="#{user.email}" />
+				</p:column>
+
+				<p:column headerText="Senha">
+					<p:outputLabel value="#{user.password}" />
+				</p:column>
+
+				<p:column headerText="Telefones">
+					<h:commandLink value="Telefones" action="phoneregister.jsf">
+						<f:param name="usercode" value="#{user.id}" />
+
+					</h:commandLink>
+				</p:column>
+
+				<p:column headerText="Editar">
+					<p:commandButton icon="ui-icon-pencil" id="editButton"
+						oncomplete="PF('dialogModalEdit').show();"
+						update="dialogModalEdit">
+						<f:setPropertyActionListener value="#{user}"
+							target="#{userBean.user}" />
+						<f:ajax execute="editButton" render=":editUserForm" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Excluir">
+				<h:commandLink value="Excluir" action="#{userBean.deleteUser}"
+					id="removeButton">
+					<f:setPropertyActionListener value="#{user}"
+						target="#{userBean.user}" />
+					<f:ajax execute="removeButton" render="@form" />
+				</h:commandLink>
+			</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

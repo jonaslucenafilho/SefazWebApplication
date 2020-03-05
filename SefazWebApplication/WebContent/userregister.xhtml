@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+
+
+	<ui:define name="content">
+
+		<p:panel id="panelUser" header="Cadastro de Usuário"
+			style="width:450px;height:220px;margin:auto;">
+
+			<h:form id="formUser">
+
+				<p:growl autoUpdate="true" id="growlFormUser" showSummary="false"
+					showDetail="true" />
+
+				<h:panelGrid id="panelGridFieldForm" columns="2" cellpadding="10">
+
+					<p:outputLabel value="Nome" for="inputTextName" />
+					<p:inputText id="inputTextName" style="width:300px" maxlength="70"
+						value="#{userBean.user.name}" required="true"
+						requiredMessage="O nome é de preenchimento obrigatório">
+						<p:watermark value="Informe o nome do usuário" for="inputTextName" />
+					</p:inputText>
+
+					<p:outputLabel value="Email" for="inputTextEmail" />
+					<p:inputText id="inputTextEmail" style="width:300px" maxlength="70"
+						value="#{userBean.user.email}" required="true"
+						requiredMessage="O email é de preenchimento obrigatório">
+						<p:watermark value="Informe o email do usuário"
+							for="inputTextEmail" />
+					</p:inputText>
+
+					<p:outputLabel value="Senha" for="inputTextPassword" />
+					<p:password id="inputTextPassword" style="width:300px"
+						maxlength="70" feedback="true" promptLabel="Senha"
+						weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
+						value="#{userBean.user.password}" required="true"
+						requiredMessage="A senha é de preenchimento obrigatório">
+						<p:watermark value="Informe a senha" for="inputTextPassword" />
+					</p:password>
+
+					<p:spacer />
+
+					<p:commandButton value="Salvar" id="saveButton" 
+						action="#{userBean.saveUser}" ajax="false" />
+
+
+				</h:panelGrid>
+
+
+			</h:form>
+
+
+		</p:panel>
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

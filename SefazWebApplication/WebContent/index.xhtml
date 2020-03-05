@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Login</title>
+	<title>Sistema Sefaz</title>
+
+	<h:outputStylesheet library="css" name="default.css" />
+
 </h:head>
 
-<h:body>
+<h:body style="display:flex;">
 
-	<h:form id="formLogin" style="margin-top:20%; margin-left:40%">
+	<h:form id="formLogin" style="margin:auto;">
 
 		<p:growl autoUpdate="true" id="growlFormLogin" showSummary="true"
 			showDetail="false" />
 
+		<p:panel id="panelLogin" header="Login" footer="Sistema Sefaz"
+			style="width:400px;">
 
-		<p:panelGrid columns="2">
+			<h:panelGrid columns="2" cellpadding="10">
 
-			<f:facet name="header">Realize o Login</f:facet>
+				<p:graphicImage library="img" name="login.png" height="50px" width="50px" />
 
-			<p:outputLabel value="Email:" />
-			<p:inputText value="#{userBean.user.email}" />
-
-			<p:outputLabel value="Senha:" />
-			<p:password value="#{userBean.user.password}" />
+				<h:panelGrid columns="2" cellpadding="5">
 
 
-			<p:commandButton value="Entrar" ajax="false"
-				action="#{userBean.logInto}" />
-			<p:commandButton value="Cadastrar" action="userregister.jsf" />
+					<p:outputLabel value="Email:" />
+					<p:inputText value="#{userBean.user.email}" />
 
-		</p:panelGrid>
+					<p:outputLabel value="Senha:" />
+					<p:password value="#{userBean.user.password}" />
 
 
+					<p:commandButton value="Entrar" ajax="false"
+						action="#{userBean.logInto}" />
+
+				</h:panelGrid>
+
+			</h:panelGrid>
+
+		</p:panel>
 
 	</h:form>
 

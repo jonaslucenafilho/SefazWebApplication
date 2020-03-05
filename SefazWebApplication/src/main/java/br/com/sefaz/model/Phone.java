@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "phones")
@@ -28,6 +29,7 @@ public class Phone implements Serializable {
 	@Column(name = "number")
 	private String number;
 	
+	@Pattern(regexp = "[^0-9]*[^\\P{L}]*", message = "Tipo de telefone contém caracteres inválidos")
 	@Column(name = "type")
 	private String type;
 	

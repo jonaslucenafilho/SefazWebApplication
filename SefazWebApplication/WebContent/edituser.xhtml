@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="editUserForm">
+
+		<p:growl autoUpdate="true" id="growlEditUser" showSummary="false"
+			showDetail="true" />
+
+		<h:panelGrid id="panelGridFieldForm" columns="2" cellpadding="10">
+
+			<p:outputLabel value="ID" for="inputTextID" />
+			<p:inputText id="inputTextID" style="width:300px" maxlength="70"
+				value="#{userBean.user.id}" readonly="true">
+			</p:inputText>
+
+			<p:outputLabel value="Nome" for="inputTextName" />
+			<p:inputText id="inputTextName" style="width:300px" maxlength="70"
+				value="#{userBean.user.name}" required="true"
+				requiredMessage="O nome é de preenchimento obrigatório">
+				<p:watermark value="Informe o nome do usuário" for="inputTextName" />
+			</p:inputText>
+
+			<p:outputLabel value="Email" for="inputTextEmail" />
+			<p:inputText id="inputTextEmail" style="width:300px" maxlength="70"
+				value="#{userBean.user.email}" required="true"
+				requiredMessage="O email é de preenchimento obrigatório">
+				<p:watermark value="Informe o email do usuário" for="inputTextEmail" />
+			</p:inputText>
+
+			<p:outputLabel value="Senha" for="inputTextPassword" />
+			<p:password id="inputTextPassword" style="width:300px" maxlength="70"
+				feedback="true" promptLabel="Senha" weakLabel="Fraca"
+				goodLabel="Média" strongLabel="Forte"
+				value="#{userBean.user.password}" required="true"
+				requiredMessage="A senha é de preenchimento obrigatório">
+				<p:watermark value="Informe a senha" for="inputTextPassword" />
+			</p:password>
+
+			<p:spacer />
+
+			<p:commandButton value="Alterar" id="editSaveButton"
+				action="#{userBean.saveUser}" ajax="false"
+				oncomplete="PF('dialogModalEdit').hide();"
+				update="formlistUsers" />
+
+
+		</h:panelGrid>
+
+
+	</h:form>
+
+
+</ui:composition>
