@@ -13,8 +13,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import br.com.sefaz.jpautil.JPAUtil;
 import br.com.sefaz.model.User;
+import br.com.sefaz.util.JPAUtil;
 
 @WebFilter(urlPatterns = { "/*" })
 public class AutenticationFilter implements Filter {

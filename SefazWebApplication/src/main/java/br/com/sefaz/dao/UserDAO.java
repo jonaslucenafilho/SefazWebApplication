@@ -1,14 +1,13 @@
-package br.com.sefaz.repository;
+package br.com.sefaz.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import br.com.sefaz.jpautil.JPAUtil;
 import br.com.sefaz.model.User;
+import br.com.sefaz.util.JPAUtil;
 
-public class IDaoUserImpl implements IDaoUser {
+public class UserDAO<E> extends GenericDAO<User> {
 
-	@Override
 	public User consultUser(String email, String password) {
 
 		User user = null;
@@ -26,5 +25,4 @@ public class IDaoUserImpl implements IDaoUser {
 
 		return user;
 	}
-
 }

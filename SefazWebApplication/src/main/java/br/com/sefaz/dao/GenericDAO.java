@@ -7,9 +7,9 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import br.com.sefaz.jpautil.JPAUtil;
+import br.com.sefaz.util.JPAUtil;
 
-public class DaoGeneric<E> {
+public class GenericDAO<E> {
 
 	public void save(E entity) {
 		EntityManager entityManager = JPAUtil.getEntityManager();

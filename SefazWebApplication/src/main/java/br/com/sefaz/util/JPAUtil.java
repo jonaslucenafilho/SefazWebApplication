@@ -1,4 +1,4 @@
-package br.com.sefaz.jpautil;
+package br.com.sefaz.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
