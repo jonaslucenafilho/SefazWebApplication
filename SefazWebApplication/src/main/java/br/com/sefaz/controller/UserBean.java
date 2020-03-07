@@ -13,9 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 
+
 import br.com.sefaz.dao.UserDAO;
 import br.com.sefaz.model.User;
-
 
 @ViewScoped
 @ManagedBean(name = "userBean")
@@ -26,7 +26,6 @@ public class UserBean implements Serializable {
 	private User user = new User();
 	private UserDAO<User> userDAO = new UserDAO<User>();
 	private List<User> users = new ArrayList<User>();
-
 
 	public User getUser() {
 		return user;
@@ -47,7 +46,7 @@ public class UserBean implements Serializable {
 	public void setUserDAO(UserDAO<User> userDAO) {
 		this.userDAO = userDAO;
 	}
-	
+
 	@PostConstruct
 	public void loadUsers() {
 		users = userDAO.getListEntity(User.class);
@@ -59,17 +58,17 @@ public class UserBean implements Serializable {
 	}
 
 	public String saveUser() {
-		userDAO.update(user);
-		user = new User();
-		loadUsers();
-		userDAO.showMsg("Cadastrado com sucesso!");
-		return "";
-	}
-
-	public String saveNewUser() {
-		userDAO.update(user);
-		user = new User();
-		userDAO.showMsg("Cadastrado com sucesso!");
+		try {
+			userDAO.update(user);
+			user = new User();
+			loadUsers();
+			userDAO.showMsg("Cadastrado com sucesso!");
+			return "";
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário já existe no sistema", null));
+			user = new User();
+		}
 		return "";
 	}
 
@@ -112,12 +111,12 @@ public class UserBean implements Serializable {
 		ExternalContext externalContext = context.getExternalContext();
 		externalContext.getSessionMap().remove("loggedUser");
 
-		HttpServletRequest httpServletRequest = (HttpServletRequest) context.getCurrentInstance().getExternalContext()
-				.getRequest();
+		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance()
+				.getExternalContext().getRequest();
 
 		httpServletRequest.getSession().invalidate();
 
 		return "index.jsf";
 	}
-
+	
 }
