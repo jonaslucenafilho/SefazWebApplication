@@ -35,7 +35,7 @@ public class User implements Serializable {
 	
 	@NotBlank(message = "Email deve ser informado")
 	@Email(message="Insira um email válido")
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	private String email;
 	
 	@NotBlank(message = "Senha deve ser informada")

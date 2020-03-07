@@ -25,72 +25,69 @@ public class GenericDAO<E> {
 	public E update(E entity) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
-		entityTransaction.begin();
+		try {
+			entityTransaction.begin();
 
-		E updateEntity = entityManager.merge(entity);
+			E updateEntity = entityManager.merge(entity);
 
-		entityTransaction.commit();
-		entityManager.close();
+			entityTransaction.commit();
 
-		return updateEntity;
+			entityManager.close();
+
+			return updateEntity;
+		} catch (Exception e) {
+			throw e;
+		}
+
 	}
-	
-//	public void delete(E entity) {
-//		EntityManager entityManager = JPAUtil.getEntityManager();
-//		EntityTransaction entityTransaction = entityManager.getTransaction();
-//		entityTransaction.begin();
-//
-//		entityManager.remove(entity);
-//
-//		entityTransaction.commit();
-//		entityManager.close();
-//	}
-	
+
 	public void delete(E entity) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
 		Object id = JPAUtil.getPrimaryKey(entity);
-		entityManager.createQuery("delete from " + entity.getClass().getCanonicalName() + " where id = " + id).executeUpdate();
+		entityManager.createQuery("delete from " + entity.getClass().getCanonicalName() + " where id = " + id)
+				.executeUpdate();
 
 		entityTransaction.commit();
 		entityManager.close();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<E> getListEntity(Class<E> entity) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		
+
 		List<E> listEntity = entityManager.createQuery("from " + entity.getName()).getResultList();
-		
+
 		entityTransaction.commit();
 		entityManager.close();
-		
+
 		return listEntity;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public E search(Long id, Class<E> entity) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		
-		E searchEntity = (E) entityManager.createQuery("from " + entity.getSimpleName() + " where id = " + id).getSingleResult();
-		
+
+		E searchEntity = (E) entityManager.createQuery("from " + entity.getSimpleName() + " where id = " + id)
+				.getSingleResult();
+
 		entityManager.close();
-		
+
 		return searchEntity;
 
 	}
-	
+
 	public void showMsg(String msg) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		FacesMessage message = new FacesMessage(msg);
 		context.addMessage(null, message);
-		
+
 	}
 
 }
