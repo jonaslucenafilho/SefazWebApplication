@@ -112,7 +112,7 @@ public class UserBean implements Serializable {
 		ExternalContext externalContext = context.getExternalContext();
 		externalContext.getSessionMap().remove("loggedUser");
 
-		HttpServletRequest httpServletRequest = (HttpServletRequest) context.getCurrentInstance().getExternalContext()
+		HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
 				.getRequest();
 
 		httpServletRequest.getSession().invalidate();

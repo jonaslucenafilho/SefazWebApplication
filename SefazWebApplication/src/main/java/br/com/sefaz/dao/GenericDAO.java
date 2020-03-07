@@ -58,6 +58,7 @@ public class GenericDAO<E> {
 		entityManager.close();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<E> getListEntity(Class<E> entity) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -71,6 +72,7 @@ public class GenericDAO<E> {
 		return listEntity;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public E search(Long id, Class<E> entity) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
