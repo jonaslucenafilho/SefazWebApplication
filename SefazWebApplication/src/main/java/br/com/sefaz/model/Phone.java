@@ -2,12 +2,13 @@ package br.com.sefaz.model;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
@@ -24,7 +25,7 @@ public class Phone implements Serializable {
 	private Long id;
 	
 	@Column(name = "ddd")
-	private int ddd;
+	private Integer ddd;
 	
 	@Column(name = "number")
 	private String number;
@@ -33,14 +34,15 @@ public class Phone implements Serializable {
 	@Column(name = "type")
 	private String type;
 	
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user;
 	
 	public Phone () {
 		
 	}
 
-	public Phone(Long id, int ddd, String number, String type, User user) {
+	public Phone(Long id, Integer ddd, String number, String type, User user) {
 		this.id = id;
 		this.ddd = ddd;
 		this.number = number;
@@ -48,7 +50,7 @@ public class Phone implements Serializable {
 		this.user = user;
 	}
 
-	public Phone(int ddd, String number, String type, User user) {
+	public Phone(Integer ddd, String number, String type, User user) {
 		this.ddd = ddd;
 		this.number = number;
 		this.type = type;
@@ -63,11 +65,11 @@ public class Phone implements Serializable {
 		this.id = id;
 	}
 
-	public int getDdd() {
+	public Integer getDdd() {
 		return ddd;
 	}
 
-	public void setDdd(int ddd) {
+	public void setDdd(Integer ddd) {
 		this.ddd = ddd;
 	}
 

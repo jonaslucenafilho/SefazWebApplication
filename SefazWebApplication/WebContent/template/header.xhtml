@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,13 +9,13 @@
 
 	<p:toolbar>
 		<f:facet name="left">
-			<p:commandButton value="Home" ajax="false" action="userregister.jsf" />
-			<p:commandButton value="Cadastro" ajax="false" action="userregister.jsf" />
-			<p:commandButton value="Lista de Usuários" ajax="false" action="userslist.jsf" />
+			<p:commandButton icon="ui-icon-home" value="Home" ajax="false" action="home.jsf" />
+			<p:commandButton icon="ui-icon-plusthick" value="Cadastro" ajax="false" action="userregister.jsf" />
+			<p:commandButton icon="ui-icon-note" value="Lista de UsuÃ¡rios" ajax="false" action="userslist.jsf" />
 		</f:facet>
 
 		<f:facet name="right">
-			<p:commandButton value="Logout" ajax="false"
+			<p:commandButton icon="ui-icon-cancel" value="Logout" ajax="false"
 				action="#{userBean.logOut}" />
 		</f:facet>
 	</p:toolbar>

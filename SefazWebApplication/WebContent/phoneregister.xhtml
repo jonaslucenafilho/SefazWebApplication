@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -24,17 +24,17 @@
 
 				<h:panelGrid id="panelGridFieldForm" columns="2" cellpadding="10">
 
-					<p:outputLabel value="Usuário" for="outputTextName" />
+					<p:outputLabel value="UsuÃ¡rio:" for="outputTextName" />
 					<p:outputLabel id="outputTextName" value="#{phoneBean.user.name}" />
 
 					<p:outputLabel value="DDD:" for="inputDDD" />
-					<p:inputText id="inputDDD" mask="99" value="#{phoneBean.phone.ddd}"
+					<p:inputMask converter="convertInput" id="inputDDD" mask="(99)" value="#{phoneBean.phone.ddd}"
 						required="true" requiredMessage="Informe o DDD" />
 
-					<p:outputLabel value="Número:" for="inputNumber" />
+					<p:outputLabel value="NÃºmero:" for="inputNumber" />
 					<p:inputMask id="inputNumber" mask="99999-9999"
 						value="#{phoneBean.phone.number}" required="true"
-						requiredMessage="Informe o número" />
+						requiredMessage="Informe o nÃºmero" />
 
 					<p:outputLabel value="Tipo:" />
 					<p:selectOneMenu value="#{phoneBean.phone.type}" required="true"
@@ -54,7 +54,7 @@
 
 			<p:spacer />
 
-			<h:form id="formListPhones" style="margin:auto;margin-left:2%;">
+			<h:form id="formListPhones" style="margin:auto;margin-left:2%">
 
 				<p:growl autoUpdate="true" id="growlFormListPhones"
 					showSummary="false" showDetail="true" />
@@ -64,29 +64,38 @@
 
 					<f:facet name="header">Lista de Telefones Cadastrados</f:facet>
 
-					<p:column headerText="ID">
+					<p:column headerText="ID" style="text-align:center;width:10px">
 						<p:outputLabel value="#{phone.id}" />
 					</p:column>
 
-					<p:column headerText="DDD">
+					<p:column headerText="DDD" style="text-align:center;width:20px">
 						<p:outputLabel value="#{phone.ddd}" />
 					</p:column>
 
-					<p:column headerText="Número">
+					<p:column headerText="NÃºmero" style="text-align:center;width:70px">
 						<p:outputLabel value="#{phone.number}" />
 					</p:column>
 
-					<p:column headerText="Tipo">
+					<p:column headerText="Tipo" style="text-align:center;width:60px">
 						<p:outputLabel value="#{phone.type}" />
 					</p:column>
 
-					<p:column headerText="Excluir">
-						<h:commandLink value="Excluir" action="#{phoneBean.deletePhone}"
-							id="removeButton">
+					<p:column headerText="Excluir" style="text-align:center;width:35px">
+						<p:commandButton icon="ui-icon-trash"
+							action="#{phoneBean.deletePhone}" update="formListPhones"
+							immediate="true">
 							<f:setPropertyActionListener value="#{phone}"
 								target="#{phoneBean.phone}" />
-							<f:ajax execute="removeButton" render="@form" />
-						</h:commandLink>
+								<p:confirm header="ConfirmaÃ§Ã£o" message="Excluir telefone?"
+							icon="ui-icon-alert" />
+						</p:commandButton>
+						
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="NÃ£o" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
 					</p:column>
 
 				</p:dataTable>

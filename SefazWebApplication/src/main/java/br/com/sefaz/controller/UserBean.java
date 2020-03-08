@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 
-
 import br.com.sefaz.dao.UserDAO;
 import br.com.sefaz.model.User;
 
@@ -24,6 +23,8 @@ public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private User user = new User();
+	@SuppressWarnings("unused")
+	private User loggedUser = new User();
 	private UserDAO<User> userDAO = new UserDAO<User>();
 	private List<User> users = new ArrayList<User>();
 
@@ -33,6 +34,19 @@ public class UserBean implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public User getLoggedUser() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+		User loggedUser = (User) externalContext.getSessionMap().get("loggedUser");
+
+		return loggedUser;
+	}
+
+	public void setLoggedUser(User loggedUser) {
+		this.loggedUser = loggedUser;
 	}
 
 	public List<User> getUsers() {
@@ -94,7 +108,7 @@ public class UserBean implements Serializable {
 				ExternalContext externalContext = context.getExternalContext();
 				externalContext.getSessionMap().put("loggedUser", userLogged);
 
-				return "userregister.jsf";
+				return "home.jsf";
 			}
 
 		} catch (NoResultException e) {
@@ -118,5 +132,5 @@ public class UserBean implements Serializable {
 
 		return "index.jsf";
 	}
-	
+
 }

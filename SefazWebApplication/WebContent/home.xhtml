@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+
+
+	<ui:define name="content">
+
+		<p:panel id="panelUser" header="Bem Vindo"
+			style="width:450px;height:150px;margin:auto;">
+
+			<h:form id="formUser">
+
+				<p:growl autoUpdate="true" id="growlFormUser" showSummary="false"
+					showDetail="true" />
+
+				<h:panelGrid id="panelGridFieldForm" columns="2" cellpadding="10">
+
+					<p:outputLabel value="Nome:" for="outputTextName" />
+					<p:outputLabel id="outputTextName" value="#{userBean.loggedUser.name}"  />
+
+					<p:outputLabel value="Email:" for="outputTextEmail" />
+					<p:outputLabel id="outputTextEmail" value="#{userBean.loggedUser.email}"  />
+
+					<p:outputLabel value="Senha:" for="outputTextPassword" />
+					<p:outputLabel id="outputTextPassword" value="#{userBean.loggedUser.password}"  />
+
+				</h:panelGrid>
+
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>
+
