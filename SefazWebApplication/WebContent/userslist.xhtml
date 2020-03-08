@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -14,9 +14,8 @@
 
 	<ui:define name="content">
 
-		<p:dialog header="Editar cadastro de usu�rio" id="dialogModalEdit"
-			widgetVar="dialogModalEdit" modal="true" height="300px"
-			width="450px">
+		<p:dialog header="Editar cadastro de usuário" id="dialogModalEdit"
+			widgetVar="dialogModalEdit" modal="true" height="300px" width="450px">
 
 			<ui:include src="edituser.xhtml" />
 
@@ -30,32 +29,32 @@
 			<p:dataTable id="usersInfo" value="#{userBean.users}" var="user"
 				style="width:98%;">
 
-				<f:facet name="header">Lista de Usu�rios Cadastrados</f:facet>
+				<f:facet name="header">Lista de Usuários Cadastrados</f:facet>
 
-				<p:column headerText="ID">
+				<p:column headerText="ID" style="text-align:center;width:10px">
 					<p:outputLabel value="#{user.id}" />
 				</p:column>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" style="text-align:center;width:100px">
 					<p:outputLabel value="#{user.name}" />
 				</p:column>
 
-				<p:column headerText="Email">
+				<p:column headerText="Email" style="text-align:center;width:100px">
 					<p:outputLabel value="#{user.email}" />
 				</p:column>
 
-				<p:column headerText="Senha">
+				<p:column headerText="Senha" style="text-align:center;width:100px">
 					<p:outputLabel value="#{user.password}" />
 				</p:column>
 
-				<p:column headerText="Telefones">
-					<h:commandLink value="Telefones" action="phoneregister.jsf">
+				<p:column headerText="Telefones" style="text-align:center;width:40px">
+					<p:commandButton icon="ui-icon-contact" id="phoneButton"
+						action="phoneregister.jsf">
 						<f:param name="usercode" value="#{user.id}" />
-
-					</h:commandLink>
+					</p:commandButton>
 				</p:column>
 
-				<p:column headerText="Editar">
+				<p:column headerText="Editar" style="text-align:center;width:20px">
 					<p:commandButton icon="ui-icon-pencil" id="editButton"
 						oncomplete="PF('dialogModalEdit').show();"
 						update="dialogModalEdit">
@@ -65,14 +64,23 @@
 					</p:commandButton>
 				</p:column>
 
-				<p:column headerText="Excluir">
-				<h:commandLink value="Excluir" action="#{userBean.deleteUser}"
-					id="removeButton">
-					<f:setPropertyActionListener value="#{user}"
-						target="#{userBean.user}" />
-					<f:ajax execute="removeButton" render="@form" />
-				</h:commandLink>
-			</p:column>
+				<p:column headerText="Excluir" style="text-align:center;width:25px">
+					<p:commandButton icon="ui-icon-trash"
+						action="#{userBean.deleteUser}" update="formlistUsers"
+						immediate="true">
+						<f:setPropertyActionListener value="#{user}"
+							target="#{userBean.user}" />
+						<p:confirm header="Confirmação" message="Excluir usuário?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:column>
 
 			</p:dataTable>
 
