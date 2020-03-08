@@ -10,6 +10,7 @@ Sistema para realizar controle de usuários (CRUD), e autenticação dos mesmos.
 -	H2
 -	Eclipse IDE
 -	SourceTree
+- Tomcat 8.5
 
 # Observações
 Na página de login acesse com:
