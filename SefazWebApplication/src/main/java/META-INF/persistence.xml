@@ -14,14 +14,14 @@
 		<class>br.com.sefaz.model.Phone</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
-				value="org.h2.Driver" />
+				value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:mem:test" />
-			<property name="javax.persistence.jdbc.user" value="sa" />
-			<property name="javax.persistence.jdbc.password" value="" />
+				value="jdbc:postgres://isjtjkpjbctisx:c1098ee2ddbde7d09db2b6902569c67d4a572c7745df7708ecfad5e1b0d80bd2@ec2-52-73-247-67.compute-1.amazonaws.com:5432/ddiifuf62dv57u" />
+			<property name="javax.persistence.jdbc.user" value="isjtjkpjbctisx" />
+			<property name="javax.persistence.jdbc.password" value="c1098ee2ddbde7d09db2b6902569c67d4a572c7745df7708ecfad5e1b0d80bd2" />
 
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.H2Dialect" />
+				value="org.hibernate.dialect.PostgreSQL95Dialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8" />
