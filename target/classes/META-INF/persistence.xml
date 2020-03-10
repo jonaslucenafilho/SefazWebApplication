@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+
+	<persistence-unit name="SefazWebApplication"
+		transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<class>br.com.sefaz.model.User</class>
+		<class>br.com.sefaz.model.Phone</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver"
+				value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgres://isjtjkpjbctisx:c1098ee2ddbde7d09db2b6902569c67d4a572c7745df7708ecfad5e1b0d80bd2@ec2-52-73-247-67.compute-1.amazonaws.com:5432/ddiifuf62dv57u" />
+			<property name="javax.persistence.jdbc.user" value="isjtjkpjbctisx" />
+			<property name="javax.persistence.jdbc.password" value="c1098ee2ddbde7d09db2b6902569c67d4a572c7745df7708ecfad5e1b0d80bd2" />
+
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQL95Dialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8" />
+
+
+		</properties>
+
+
+	</persistence-unit>
+
+</persistence>
+
